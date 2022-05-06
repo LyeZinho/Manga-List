@@ -1,0 +1,61 @@
+﻿@page
+@using website_asp_net_and_dapperorm;
+@using System.Web;
+
+@{
+    ViewData["Title"] = "Manga list";
+
+}
+<h1>@ViewData["Title"]</h1>
+
+@{
+    //Form
+    if (HttpMethods.IsPost(Request.Method))
+    {
+        //Form
+        string mangaName = Request.Form["inserir_nome"];
+        string mangaCapitulos = Request.Form["inserir_capitulos"];
+
+        //Inserir o manga
+        try
+        {
+            int cap = int.Parse(mangaCapitulos);
+            MangaDb db = new MangaDb();
+            dynamic data = db.SetMangaCapitolos(mangaName, cap);
+            Response.Redirect("/Listas/lista");
+        }
+        catch (Exception ex)
+        {
+            ViewData["Error"] = ex.Message;
+        }
+    }
+}
+
+<body>
+    <div class="container-fluid">
+	   <div class="row">
+		  <div class="col-md-4">
+                <br>
+                <form method="post" class="was-validated">
+                    <fieldset>
+                        <div class = "imput-group">
+                            <label for = "inserir_nome">Nome do manga</label>
+                            <input type="text" class="form-control" name="inserir_nome" id="inserir_nome" value="" aria-describedby="inputGroup-sizing-default" required/>
+
+                            
+                            <label for = "inserir_nome">Numero de capitulos</label>
+                            <input type="text" class="form-control" name="inserir_capitulos" id="inserir_episodeos" value="" aria-describedby="inputGroup-sizing-default" required/>
+
+                            
+                            <label>&nbsp;</label>
+                            <br><br>
+                            <input type="submit" value="Concluir" class="btn btn-primary" />
+                        </div>
+                    </fieldset>
+                </form>
+		        </div>
+		    <div class="col-md-8">
+	      </div>
+        </div>
+    </div>
+</body>

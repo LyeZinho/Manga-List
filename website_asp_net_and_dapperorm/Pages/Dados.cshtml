@@ -1,0 +1,30 @@
+﻿@page
+@using website_asp_net_and_dapperorm;
+
+@{
+    ViewData["Title"] = "Manga list";
+
+}
+<h1>@ViewData["Title"]</h1>
+
+@{
+    MangaDb db = new MangaDb();
+    dynamic data = db.ReadMangaAsc();
+    <table  class="table">
+        <tr>
+            <th scope="col">Nome</th>
+            <th scope="col">Autor</th>
+            <th scope="col">Genero</th>
+            <th scope="col">Capitulos lidos</th>
+        </tr>
+        @foreach (var item in data)
+        {
+            <tr>
+                <td>@item.nome</td>
+                <td>@item.autor</td>
+                <td>@item.genero</td>
+                <td>@item.captuloslidos</td>
+            </tr>
+        }
+    </table>
+}

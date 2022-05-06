@@ -1,0 +1,60 @@
+﻿@page
+@using website_asp_net_and_dapperorm;
+@using System.Web;
+
+@{
+    ViewData["Title"] = "Manga list";
+
+}
+<h1>@ViewData["Title"]</h1>
+
+@{
+    //Form
+    if (HttpMethods.IsPost(Request.Method))
+    {
+        //Form
+        string mangaName = Request.Form["inserir_nome"];
+        string mangaAuthor = Request.Form["inserir_autor"];
+        string mangaGenre = Request.Form["inserir_genero"];
+        
+        //Inserir o manga
+        MangaDb db = new MangaDb();
+        dynamic data = db.InsertManga(mangaName, mangaAuthor, mangaGenre);
+        
+        //Redirect
+        Response.Redirect("/Listas/lista");
+    }
+}
+
+    <body>
+        <div class="container-fluid">
+	    <div class="row">
+		    <div class="col-md-4">
+                <br>
+                <form method="post" class="was-validated">
+                    <fieldset>
+                        <div class = "imput-group">
+                            <label for = "inserir_nome">Nome do manga</label>
+                            <input type="text" class="form-control" name="inserir_nome" id="inserir_nome" value="" aria-describedby="inputGroup-sizing-default" required/>
+
+                            
+                            <label for = "inserir_nome">Autor do manga</label>
+                            <input type="text" class="form-control" name="inserir_autor" id="inserir_autor" value="" aria-describedby="inputGroup-sizing-default" required/>
+
+
+                            <label for = "inserir_nome">Genero do manga</label>
+                            <input type="text" class="form-control" name="inserir_genero" id="inserir_genero" value="" aria-describedby="inputGroup-sizing-default" required/>
+
+
+                            <label>&nbsp;</label>
+                            <br><br>
+                            <input type="submit" value="Concluir" class="btn btn-primary" />
+                        </div>
+                    </fieldset>
+                </form>
+		    </div>
+		    <div class="col-md-8">
+		    </div>
+	    </div>
+    </div>
+</body>
